@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Gay Repository') {
+        stage('Clone repository on gitHub') {
             steps {
                 git branch: 'main', 
                 url: "https://github.com/poommieiei/learn-jenkins.git"
