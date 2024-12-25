@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Gay Repository') {
             steps {
                 git branch: 'main', 
-                url: "https://github.com/poommieiei/gay-jenkins.git"
+                url: "https://github.com/poommieiei/learn-jenkins.git"
             }
             post {
                 success {
