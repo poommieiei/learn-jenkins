@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Clone Gay Repository') {
             steps {
-                git branch: 'main',
-                url: "https://github.com/poommieiei/gay-jenkins.git"
+                git branch: 'main', url: "https://github.com/poommieiei/gay-jenkins.git"
             }
         }
         stage('Build') {
             steps {
-                sh: 'npm install'
+                // รันคำสั่ง shell สำหรับติดตั้ง dependencies
+                sh 'npm install'
 
                 echo 'Building...'
             }
@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                
+                // เพิ่มคำสั่ง deploy ที่นี่
             }
         }
     }
