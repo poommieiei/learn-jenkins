@@ -30,5 +30,22 @@ pipeline {
                 }
             }
         }
+        stage('Build') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+            }
+            post {
+                aways {
+                    echo 'Build finished.'
+                }
+                success {
+                    echo 'Build successful.'
+                }
+                failure {
+                    echo 'Build failed.'
+                }
+            }
+        }
     }
 }
