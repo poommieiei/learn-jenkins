@@ -14,6 +14,7 @@ pipeline {
                 failure {
                     echo 'Failed to clone repository.'
                 }
+            }
         }
         stage('Install Node.js') {
             steps {
