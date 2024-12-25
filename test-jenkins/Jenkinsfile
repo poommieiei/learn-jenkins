@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                git branch: 'main',
+                url: "https://github.com/poommieiei/gay-jenkins.git"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh: 'npm install'
+
+                echo 'Building...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                
+            }
+        }
+    }
+}
