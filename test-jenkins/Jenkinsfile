@@ -7,6 +7,13 @@ pipeline {
                 git branch: 'main', url: "https://github.com/poommieiei/gay-jenkins.git"
             }
         }
+        stage('Install Node.js') {
+            steps {
+                // ติดตั้ง Node.js (หากยังไม่ได้ติดตั้ง)
+                sh 'curl -sL https://deb.nodesource.com/setup_16.x | bash -'
+                sh 'apt-get install -y nodejs'
+            }
+        }
         stage('Build') {
             steps {
                 // รันคำสั่ง shell สำหรับติดตั้ง dependencies
