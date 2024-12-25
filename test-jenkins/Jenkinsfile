@@ -18,10 +18,8 @@ pipeline {
         }
         stage('Install Node.js') {
             steps {
-                // ติดตั้ง Node.js (หากยังไม่ได้ติดตั้ง)
                 sh 'curl -sL https://deb.nodesource.com/setup_16.x | bash -'
                 sh 'apt-get install -y nodejs'
-                echo 'Node.js installed.'
             }
             post {
                 success {
