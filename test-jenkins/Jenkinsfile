@@ -31,6 +31,18 @@ pipeline {
                 }
             }
         }
-        
+        stage('Install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+            post {
+                success {
+                    echo 'Dependencies installed successfully.'
+                }
+                failure {
+                    echo 'Failed to install dependencies.'
+                }
+            }
+        }
     }
 }
