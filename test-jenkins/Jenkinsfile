@@ -23,19 +23,13 @@ pipeline {
                 sh 'apt-get install -y nodejs'
                 echo 'Node.js installed.'
             }
-        }
-        stage('Build') {
-            steps {
-                // รันคำสั่ง shell สำหรับติดตั้ง dependencies
-                sh 'npm install'
-
-                echo 'Building...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                // เพิ่มคำสั่ง deploy ที่นี่
+            post {
+                success {
+                    echo 'Node.js installed successfully.'
+                }
+                failure {
+                    echo 'Failed to install Node.js.'
+                }
             }
         }
     }
