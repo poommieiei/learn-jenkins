@@ -33,8 +33,7 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                cd test-jenkins
-                sh 'npm install'
+                sh 'cd test-jenkins && npm install'
             }
             post {
                 success {
