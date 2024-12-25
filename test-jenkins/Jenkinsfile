@@ -4,8 +4,16 @@ pipeline {
     stages {
         stage('Clone Gay Repository') {
             steps {
-                git branch: 'main', url: "https://github.com/poommieiei/gay-jenkins.git"
+                git branch: 'main', 
+                url: "https://github.com/poommieiei/gay-jenkins.git"
             }
+            post {
+                success {
+                    echo 'Cloned repository successfully.'
+                }
+                failure {
+                    echo 'Failed to clone repository.'
+                }
         }
         stage('Install Node.js') {
             steps {
