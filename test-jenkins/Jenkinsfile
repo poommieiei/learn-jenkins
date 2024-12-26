@@ -46,7 +46,7 @@ pipeline {
         }
         steps('Build') {
             steps {
-                sh 'cd test-jenkins && npm run build'
+                sh 'cd test-jenkins && npm run buil'
             }
             post {
                 success {
