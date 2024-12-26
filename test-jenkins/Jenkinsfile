@@ -55,18 +55,5 @@ pipeline {
                 }
             }
         }
-        steps('Build') {
-            steps {
-                sh 'cd test-jenkins && npm run build'
-            }
-            post {
-                success {
-                    echo 'Build successfully.'
-                }
-                failure {
-                    echo 'Failed to build.'
-                }
-            }
-        }
     }
 }
