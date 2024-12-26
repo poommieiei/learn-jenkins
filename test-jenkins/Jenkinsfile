@@ -1,18 +1,18 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Clone repository on gitHub') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', 
-                url: "https://github.com/poommieiei/learn-jenkins.git"
+                git branch: "develop", 
+                    url: "https://github.com/poommieiei/learn-jenkins.git"
             }
             post {
                 success {
-                    echo 'Cloned repository successfully.'
+                    echo 'Code checked out successfully.'
                 }
                 failure {
-                    echo 'Failed to clone repository.'
+                    echo 'Failed to checkout code.'
                 }
             }
         }
@@ -41,6 +41,23 @@ pipeline {
                 }
                 failure {
                     echo 'Failed to install dependencies.'
+                }
+            }
+        }
+        stage('Merge Code'){
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh 'cd test-jenkins && git fetch origin'
+                sh 'cd test-jenkins && git merge origin/develop'
+            }
+            post {
+                success {
+                    echo 'Code merged successfully.'
+                }
+                failure {
+                    echo 'Failed to merge code.'
                 }
             }
         }
