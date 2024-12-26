@@ -7,6 +7,17 @@ pipeline {
                 git branch: "develop", 
                 url: "https://github.com/poommieiei/learn-jenkins.git"
             }
+            post {
+                away{
+                    echo 'Code checked out successfully.'
+                }
+                success {
+                    echo 'Code checked out successfully.'
+                }
+                failure {
+                    echo 'Failed to checkout code.'
+                }
+            }
         }
         stage('Install Node.js') {
             steps {
