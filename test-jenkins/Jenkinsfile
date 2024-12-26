@@ -31,6 +31,19 @@ pipeline {
                 }
             }
         }
+        stage('Check Node.js version') {
+            steps {
+                sh 'node -v'
+            }
+            post {
+                success {
+                    echo 'Node.js version checked successfully.'
+                }
+                failure {
+                    echo 'Failed to check Node.js version.'
+                }
+            }
+        }
         stage('Install dependencies') {
             steps {
                 sh 'cd test-jenkins'
