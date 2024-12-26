@@ -47,9 +47,6 @@ pipeline {
         steps('Build') {
             steps {
                 sh 'cd test-jenkins && npm run build'
-                if( $? != 0 ) {
-                    error 'Failed to build.'
-                }
             }
             post {
                 success {
