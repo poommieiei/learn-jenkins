@@ -1,19 +1,13 @@
 pipeline {
     agent any
-
+    environment {
+        BRANCH_NAME: 'main', 
+        url: "https://github.com/poommieiei/learn-jenkins.git"
+    }
     stages {
-        stage('Clone repository on gitHub') {
-            steps {
-                git branch: 'main', 
-                url: "https://github.com/poommieiei/learn-jenkins.git"
-            }
-            post {
-                success {
-                    echo 'Cloned repository successfully.'
-                }
-                failure {
-                    echo 'Failed to clone repository.'
-                }
+        stage{
+            step{
+                git branch: "develop", url: "https://github.com/poommieiei/learn-jenkins.git"
             }
         }
         stage('Install Node.js') {
