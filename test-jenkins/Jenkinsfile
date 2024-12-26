@@ -5,9 +5,10 @@ pipeline {
         url: "https://github.com/poommieiei/learn-jenkins.git"
     }
     stages {
-        stage{
+        stage('Checkout') {
             step{
-                git branch: "develop", url: "https://github.com/poommieiei/learn-jenkins.git"
+                git branch: "develop", 
+                url: "https://github.com/poommieiei/learn-jenkins.git"
             }
         }
         stage('Install Node.js') {
@@ -35,6 +36,22 @@ pipeline {
                 }
                 failure {
                     echo 'Failed to install dependencies.'
+                }
+            }
+        }
+        stage('Merge Code'){
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh 'cd test-jenkins && git merge origin/develop'
+            }
+            post {
+                success {
+                    echo 'Code merged successfully.'
+                }
+                failure {
+                    echo 'Failed to merge code.'
                 }
             }
         }
