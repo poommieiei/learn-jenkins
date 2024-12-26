@@ -3,9 +3,9 @@ pipeline {
     
     stages {
         stage('Checkout') {
-            step{
+            steps {
                 git branch: "develop", 
-                url: "https://github.com/poommieiei/learn-jenkins.git"
+                    url: "https://github.com/poommieiei/learn-jenkins.git"
             }
             post {
                 success {
@@ -36,9 +36,6 @@ pipeline {
                 sh 'cd test-jenkins && npm install'
             }
             post {
-                away{
-                    echo 'Dependencies installed successfully.'
-                }
                 success {
                     echo 'Dependencies installed successfully.'
                 }
@@ -52,6 +49,7 @@ pipeline {
                 branch 'develop'
             }
             steps {
+                sh 'cd test-jenkins && git fetch origin'
                 sh 'cd test-jenkins && git merge origin/develop'
             }
             post {
