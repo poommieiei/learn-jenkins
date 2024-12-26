@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    environment {
-        BRANCH_NAME: 'main', 
-        url: "https://github.com/poommieiei/learn-jenkins.git"
-    }
+    
     stages {
         stage('Checkout') {
             step{
