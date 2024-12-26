@@ -1,9 +1,7 @@
 pipeline {
     agent any
     environment {
-        BRANCH_NAME = "${env.BRANCH_NAME}"
-
-        echo "Branch name: ${BRANCH_NAME}"
+        git branch: 'main'
     }
     
     stages {
