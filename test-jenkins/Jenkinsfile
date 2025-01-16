@@ -1,78 +1,70 @@
 pipeline {
     agent any
-    
+
+    environment {
+        REPO_URL = 'https://github.com/poommieiei/learn-jenkins.git'
+        BRANCH_MAIN = 'main'
+        BRANCH_DEVELOP = 'develop'
+        WORK_DIR = 'test-jenkins'
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: "main", 
-                url: "https://github.com/poommieiei/learn-jenkins.git"
-            }
-            post {
-                success {
-                    echo 'Code checked out successfully.'
-                }
-                failure {
-                    echo 'Failed to checkout code.'
-                }
+                echo 'Checking out code...'
+                git branch: "${BRANCH_MAIN}", url: "${REPO_URL}"
             }
         }
+
         stage('Install Node.js') {
             steps {
+                echo 'Installing Node.js...'
                 sh 'curl -sL https://deb.nodesource.com/setup_16.x | bash -'
                 sh 'apt-get install -y nodejs'
                 sh 'node -v'
             }
-            post {
-                success {
-                    echo 'Node.js installed successfully.'
-                }
-                failure {
-                    echo 'Failed to install Node.js.'
-                }
-            }
         }
-        stage('Check Node.js version') {
+
+        stage('Check Node.js Version') {
             steps {
+                echo 'Checking Node.js version...'
                 sh 'node -v'
             }
-            post {
-                success {
-                    echo 'Node.js version checked successfully.'
-                }
-                failure {
-                    echo 'Failed to check Node.js version.'
-                }
-            }
         }
-        stage('Install dependencies') {
+
+        stage('Install Dependencies') {
             steps {
-                sh 'cd test-jenkins && npm i'
-            }
-            post {
-                success {
-                    echo 'Dependencies installed successfully.'
-                }
-                failure {
-                    echo 'Failed to install dependencies.'
-                }
+                echo 'Installing project dependencies...'
+                sh """
+                cd ${WORK_DIR}
+                npm install
+                """
             }
         }
+
         stage('Merge Code') {
             when {
-                branch 'develop'
+                branch "${BRANCH_DEVELOP}"
             }
             steps {
-                sh 'cd test-jenkins && git fetch origin'
-                sh 'cd test-jenkins && git merge origin/develop'
+                echo 'Merging code from develop into main...'
+                sh """
+                cd ${WORK_DIR}
+                git fetch origin
+                git checkout ${BRANCH_MAIN}
+                git merge origin/${BRANCH_DEVELOP} --no-ff -m "Automated Merge from develop to main"
+                git push origin ${BRANCH_MAIN}
+                """
             }
-            post {
-                success {
-                    echo 'Code merged successfully.'
-                }
-                failure {
-                    echo 'Failed to merge code.'
-                }
-            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
